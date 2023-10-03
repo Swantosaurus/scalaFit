@@ -1,0 +1,5 @@
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E040] Syntax Error: /Users/swant/Idea/manualModules/asciiDrawing/src/main/scala/com/kobera/scala/asciidrawing/elements/BasicElement.scala:31:4 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m31 |[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    ')' expected, but '}' found[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

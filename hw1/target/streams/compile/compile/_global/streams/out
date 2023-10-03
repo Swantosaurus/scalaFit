@@ -1,0 +1,7 @@
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: /Users/swant/Idea/manualModules/hw1/src/main/scala/com/kobera/scala/hw1/Main.scala:35:8 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m35 |[0m        printlnAsciiDrawing.generateTriangle(AsciiDrawing.Pointing.TopLeft, size, char)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m        ^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m        Not found: printlnAsciiDrawing[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

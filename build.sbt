@@ -19,4 +19,11 @@ lazy val hw1 = project
   .settings(
     name := "hw1",
   )
+  .dependsOn(asciiDrawing)
+
+lazy val asciiDrawing = project
+  .in(file("asciiDrawing"))
+  .settings(
+    name := "asciiDrawing",
+  )
   .dependsOn(strings)
