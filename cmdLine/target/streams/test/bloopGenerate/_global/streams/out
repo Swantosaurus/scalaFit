@@ -1,0 +1,4 @@
+[debug] [cmdLine-test] Classpath dependencies List(strings)
+[debug] [cmdLine-test] Dependencies from configurations List(cmdLine)
+[debug] Bloop wrote the configuration of project 'cmdLine-test' to '/Users/swant/Idea/manualModules/.bloop/cmdLine-test.json'
+[success] Generated .bloop/cmdLine-test.json

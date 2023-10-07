@@ -1,0 +1,4 @@
+[debug] [ui-test] Classpath dependencies List()
+[debug] [ui-test] Dependencies from configurations List(ui)
+[debug] Bloop wrote the configuration of project 'ui-test' to '/Users/swant/Idea/manualModules/.bloop/ui-test.json'
+[success] Generated .bloop/ui-test.json
