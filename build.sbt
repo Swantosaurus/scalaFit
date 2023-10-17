@@ -6,13 +6,26 @@ lazy val global = project
   .settings(
     name := "global",
   )
-  .aggregate(hw1, strings, cmdLine, ui, asciiDrawing)
+  .aggregate(hw1, strings, cmdLine, ui, asciiDrawing, testEnumExtends, comb)
 
 lazy val strings = project
   .in(file("strings"))
   .settings(
     name := "strings",
   )
+  
+lazy val comb = project
+  .in(file("cv02_comb"))
+  .settings(
+    name := "comb",
+    libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "2.3.0"
+  )
+
+lazy val testEnumExtends = project
+    .in(file("testEnumExtends"))
+    .settings(
+      name := "testEnumExtends",
+    )
 
 lazy val hw1 = project
   .in(file("hw1"))

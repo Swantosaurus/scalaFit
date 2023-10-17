@@ -11,9 +11,8 @@ def main(): Unit = {
 def startProgram(): Int = {
   println("hw01 - ascidrawing")
 
-  println("type in what to draw")
-  println("to quit input 'q'")
-  println("supprotedStructs: triangle, squere, spiral; char you want to print; size")
+  println("type in what to draw and separate arguments by ';' or type 'q' to quit")
+  println("supprotedStructs: triangle, squere, spiral  ;  char you want to print  ; size")
 
   val input = scala.io.StdIn.readLine()
 
@@ -41,7 +40,6 @@ def startProgram(): Int = {
         println("unsupported struct") 
       }
     }
-    )
+  )
   startProgram()
 }
-
