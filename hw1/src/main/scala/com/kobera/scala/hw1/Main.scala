@@ -37,7 +37,7 @@ def startProgram(): Int = {
       case "spiral" => {
         AsciiDrawing.spiral(size, char)
       }
-      case _ => {
+      case null => {
         println("unsupported struct") 
       }
     }
