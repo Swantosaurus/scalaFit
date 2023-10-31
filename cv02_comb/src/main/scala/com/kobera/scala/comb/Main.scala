@@ -7,7 +7,7 @@ import scala.util.parsing.combinator.*
 
 
 @main
-def man(): Unit = {
+def main(): Unit = {
    val parserRes = ExprParser.parseAll(ExprParser.chainUniversalParser, "1.0 * 2.0 * 3")
    test(parserRes.get)
 
@@ -20,54 +20,77 @@ def man(): Unit = {
    test(parserRes3.get)
    test(parserRes4.get)
 
-  val addMultParser1 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 + 2 * 3")
-  val addMultParser2 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 + 3")
-  val addMultParser3 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 * 3")
+   val addMultParser1 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 + 2 * 3")
+   val addMultParser2 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 + 3")
+   val addMultParser3 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 * 3")
 
-  val addMultParser4 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 * 2 + 3")
-  val MultAddMult = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 + 2 * 3 + 4")
-  val MultAddMult2 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 * 2 + 3 * 4")
+   val addMultParser4 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 * 2 + 3")
+   val MultAddMult = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 + 2 * 3 + 4")
+   val MultAddMult2 = ExprParser.parseAll(ExprParser.chainUniversalParser, "1 * 2 + 3 * 4")
 
 
-  test(addMultParser1.get)
-  test(addMultParser2.get)
-  test(addMultParser3.get)
-  test(addMultParser4.get)
-  test(addMultParser2.get)
-  test(MultAddMult.get)
-  test(MultAddMult2.get)
 
-  /** edge cases */
-  test(ExprParser.parseAll(ExprParser.chainUniversalParser, "0").get)
-  try {
-    test(ExprParser.parseAll(ExprParser.chainUniversalParser, "").get)
-    throw IllegalStateException("test of empty string")
-  } catch {
-    case e: RuntimeException => {}
-  }
+   val bracketsExpr = "2 + ( 2 * 3 )"
+   val bracketsExpr5 = "( 2 + 3 )"
+   val bracketsExpr2 = "2 * ( 2 + 3 )"
+   val bracketsExpr4 = "(2 + 3) * 4"
+   val bracketsParser1 = ExprParser.parseAll(ExprParser.chainMultAddBracketParser, bracketsExpr)
+   val bracketsParser5 = ExprParser.parseAll(ExprParser.chainMultAddBracketParser, bracketsExpr5)
+   val bracketsParser2 = ExprParser.parseAll(ExprParser.chainMultAddBracketParser, bracketsExpr2)
+   val bracketsParser4 = ExprParser.parseAll(ExprParser.chainMultAddBracketParser, bracketsExpr4)
 
-  try {
-    test(ExprParser.parseAll(ExprParser.chainUniversalParser, "+").get)
-    throw IllegalStateException("test of empty string")
-  } catch {
-    case e: RuntimeException => {}
-  }
+   println(s"${bracketsExpr} = ${bracketsParser1.get.value}")
+   println(s"${bracketsExpr2} = ${bracketsParser2.get.value}")
+   println(s"${bracketsExpr4} = ${bracketsParser4.get.value}")
+   println(s"${bracketsExpr5} = ${bracketsParser5.get.value}")
 
-  try {
-    test(ExprParser.parseAll(ExprParser.chainUniversalParser, "0 *").get)
-    throw IllegalStateException("test of empty string")
-  } catch {
-    case e: RuntimeException => {}
-  }
+   val bracketsExpr3 = "2 * ( 2 + 3 ) + 4"
+   val bracketsParser3 = ExprParser.parseAll(ExprParser.chainMultAddBracketParser, bracketsExpr3)
+   println(s"${bracketsExpr3} = ${bracketsParser3.get.value}")
 
-  try {
-    test(ExprParser.parseAll(ExprParser.chainUniversalParser, "0 +- 2").get)
-    throw IllegalStateException("test of empty string")
-  } catch {
-    case e: RuntimeException => {}
-  }
+   val bracketsExpr33 = "2 + ( 2 + 3 ) * 4"
+   val bracketsParser33 = ExprParser.parseAll(ExprParser.chainMultAddBracketParser, bracketsExpr33)
+   println(s"${bracketsExpr33} = ${bracketsParser33.get.value}")
 
-  test(ExprParser.parseAll(ExprParser.chainUniversalParser, "-1 - -2").get)
+   test(addMultParser1.get)
+   test(addMultParser2.get)
+   test(addMultParser3.get)
+   test(addMultParser4.get)
+   test(addMultParser2.get)
+   test(MultAddMult.get)
+   test(MultAddMult2.get)
+
+   /** edge cases */
+   test(ExprParser.parseAll(ExprParser.chainUniversalParser, "0").get)
+   try {
+     test(ExprParser.parseAll(ExprParser.chainUniversalParser, "").get)
+     throw IllegalStateException("test of empty string")
+   } catch {
+     case e: RuntimeException => {}
+   }
+
+   try {
+     test(ExprParser.parseAll(ExprParser.chainUniversalParser, "+").get)
+     throw IllegalStateException("test of empty string")
+   } catch {
+     case e: RuntimeException => {}
+   }
+
+   try {
+     test(ExprParser.parseAll(ExprParser.chainUniversalParser, "0 *").get)
+     throw IllegalStateException("test of empty string")
+   } catch {
+     case e: RuntimeException => {}
+   }
+
+   try {
+     test(ExprParser.parseAll(ExprParser.chainUniversalParser, "0 +- 2").get)
+     throw IllegalStateException("test of empty string")
+   } catch {
+     case e: RuntimeException => {}
+   }
+
+   test(ExprParser.parseAll(ExprParser.chainUniversalParser, "-1 - -2").get)
 
 
 
@@ -133,6 +156,65 @@ object ExprParser extends JavaTokenParsers {
     }
   }
 
+  lazy val bracketsFirstUniversalParser = "(" ~ chainUniversalParser ~ ")" ~ operationPattern ~ chainUniversalParser ^^ {
+    res => res match {
+      case _ ~ expr ~ _ ~ op ~ expr2 => BinOp(Operator.valueOf(op), expr, expr2)
+    }
+  }
+
+  lazy val bracketsOnlyParser = "(" ~ chainUniversalParser ~ ")" ^^ {
+    res => res match {
+      case _ ~ expr ~ _ => expr
+    }
+  }
+
+  lazy val bracketsMultParser : Parser[Expr] = chainUniversalParser ~ rep(multiplicationPattern ~ "(" ~ chainUniversalParser ~ ")") ^^ {
+    res => res match {
+      case first ~ rest => {
+        rest.foldLeft(first){ (prev, res) =>
+          res match {
+            case op ~ _ ~ expr ~ _ => BinOp(Operator.valueOf(op), prev, expr)
+          }
+        }
+      }
+    }
+  }
+
+  lazy val bracketParser : Parser[Expr] = (bracketsFirstUniversalParser ||| bracketsMultParser ||| bracketsOnlyParser||| universalParser)
+
+
+  lazy val chainMultAddBracketParser: Parser[Expr] = bracketParser ~ rep(additionPattern ~ bracketParser) ^^ {
+    res =>
+      //println(res)
+      res match {
+        case first ~ rest => {
+          //println(rest)
+          if (rest.isEmpty) {
+            first
+          }
+          else {
+            rest.foldLeft(first) { (prev, res) =>
+              res match {
+                case op ~ expr => {
+                  BinOp(Operator.valueOf(op), prev, expr)
+                }
+              }
+            }
+          }
+        }
+      }
+  }
+ /* lazy val chainBracketParser = bracketParser ~ rep(bracketParser) ^^ {
+    res => res match {
+      case first ~ rest => {
+        rest.foldLeft(first){ (prev, res) =>
+          res match {
+            case expr =>
+          }
+        }
+      }
+    }
+  }*/
 
   lazy val MultAddParser: Parser[Expr] = MultParser ~ rep(additionPattern ~ AddParser) ^^ {
     res => res match
@@ -156,6 +238,8 @@ trait Expr {
 class Literal(_value: Double) extends Expr {
   override lazy val value: Double = _value
   override lazy val txt: String = value.toString
+
+  override def toString: String = txt
 }
 
 case class BinOp(op: Operator, l: Expr, r: Expr) extends Expr {
