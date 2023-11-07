@@ -1,0 +1,98 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@title</title>
+    <style>
+        body{
+            margin: 0;
+            background: cadetblue;
+        }
+        h1 {
+            padding-top: 10px;
+            text-align: center;
+            width: 100%;
+            margin: auto;
+            height: 90px;
+        }
+        #left-wrap {
+            float: left;
+            width: 50%;
+            height: calc(100vh);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translate(0, -100px);
+        }
+        #left {
+            height: fit-content;
+        }
+        #right {
+            float: right;
+            width: 50%;
+        }
+
+        #left form{
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #left form input{
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+        #left form input[type="text"] {
+            width: 95%;
+        }
+
+        input[type="submit"] {
+            background: blueviolet;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: darkblue;
+        }
+
+        table form {
+            width: 100%;
+            height: 100%;
+        }
+        table form input {
+            width: 100%;
+            height: 100%;
+        }
+        table {
+            width: 90%;
+            
+            border-collapse: collapse;
+        }
+        td, th {
+            height: 40px;
+            text-align: center;
+        }
+
+        table tr th {
+            background:  blueviolet;
+            color: white;
+        }
+        table tr {
+            background:  cornflowerblue;
+        }
+        table tr:nth-child(2) {
+            background: deepskyblue;
+        }
+    </style>
+</head>
+
+<body>
+    @content
+</body>
+
+</html>

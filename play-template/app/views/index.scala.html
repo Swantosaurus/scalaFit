@@ -1,0 +1,41 @@
+@(userForm: Form[model.User])(implicit messagesProvider: MessagesProvider)
+@layout("Customers") {
+    <h1>Customers</h1>
+    <div id="flex">
+        <div id="left-wrap">
+            <div id="left">
+            @helper.form(action = routes.HomeController.userPost()) {
+
+
+                <input type="text" name="name" value="" placeholder="name" />
+
+                <input type="text" name="age" value="" placeholder="age" />
+
+                <input type="submit" value="Add User">
+                }
+            </div>
+        </div>
+        <div id="right">
+        <table class="w3-table-all">
+            <tr class="w3-red">
+                <th>Name</th>
+                <th>Age</th>
+                <th> </th>
+            </tr>
+            @for(user<- model.Users.users.values) {
+                <tr>
+                    <td>@user.name</td>
+                    <td>@user.age</td>
+                    <td>
+                        @helper.form(action = routes.HomeController.deletePost()) {
+                            <input type="hidden" name="name" value="@user.name" />
+                            <input type="hidden" name="age" value="@user.age" />
+                            <input type="submit" value="Delete">
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+        </div>
+    </div>
+}
