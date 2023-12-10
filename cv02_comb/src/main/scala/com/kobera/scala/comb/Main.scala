@@ -2,7 +2,6 @@ package com.kobera.scala.comb
 
 import com.kobera.scala.comb.ExprParser.parseAll
 import com.kobera.scala.comb.Operator.*
-
 import scala.util.parsing.combinator.*
 
 

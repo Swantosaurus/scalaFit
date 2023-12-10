@@ -6,7 +6,7 @@ lazy val global = project
   .settings(
     name := "global",
   )
-  .aggregate(hw1, strings, cmdLine, ui, asciiDrawing, testEnumExtends, comb)
+  .aggregate(hw1, cv03, strings, cmdLine, comb,  ui, asciiDrawing, testEnumExtends)
 
 lazy val strings = project
   .in(file("strings"))
@@ -14,6 +14,13 @@ lazy val strings = project
     name := "strings",
   )
   
+lazy val cv03 = project
+  .in(file("cv03"))
+  .settings(
+    name := "cv03",
+  )
+
+
 lazy val comb = project
   .in(file("cv02_comb"))
   .settings(
